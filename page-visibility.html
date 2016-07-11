@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<script type="text/javascript">
+// David Walsh'ın örneğinden uyarlandı
+var hidden, state, visibilityChange;
+
+// Sayfa görünür değilse document.hidden TRUE döndürür
+if (typeof document.hidden !== "undefined") {
+  hidden = "hidden";
+  visibilityChange = "visibilitychange";
+  state = "visibilityState";
+} else if (typeof document.mozHidden !== "undefined") {
+
+  // Mozilla desteği
+  hidden = "mozHidden";
+  visibilityChange = "mozvisibilitychange";
+  state = "mozVisibilityState";
+} else if (typeof document.msHidden !== "undefined") {
+
+  // IE desteği
+  hidden = "msHidden";
+  visibilityChange = "msvisibilitychange";
+  state = "msVisibilityState";
+} else if (typeof document.webkitHidden !== "undefined") {
+
+  // WebKit desteği
+  hidden = "webkitHidden";
+  visibilityChange = "webkitvisibilitychange";
+  state = "webkitVisibilityState";
+}
+
+// Önce tarayıcımızın EventListener ve Page Visibility API desteklerinin olduğundan emin oluyoruz.
+if (typeof document.addEventListener !== "undefined" && typeof document[hidden] !== "undefined") {
+  document.addEventListener(visibilityChange, function() {
+    document.title = document[state];
+  }, false);
+
+  // İlk başta gösterilecek 'default' başlığımız
+  document.title = document[state];
+}
+</script>
+<body>
+	Şimdi bu sayfa açıkken tarayıcınızda farklı bir sekmeye geçin, bu sayfanın başlığı değişecek.
+	<br /><br />
+	Kodları görmek ve tutorial'a ulaşmak için Eray'ın <a href="http://www.github.com/erayalakese/demo-page-visibility"><img style="width: 75px; vertical-align: middle;" src="GitHub_Logo.png" alt="Github"></a> reposunu inceleyin.
+</body>
+</html>
